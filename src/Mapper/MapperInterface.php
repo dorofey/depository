@@ -9,10 +9,8 @@
 namespace Repository\Mapper;
 
 use Psr\Container\ContainerInterface;
-use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\Feature\FeatureInterface;
-use Repository\Repository\RepositoryPluginManager;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
@@ -24,8 +22,8 @@ use Zend\Hydrator\HydratorInterface;
  * Class StandardMapper
  * @package Repository\Mapper
  * @method self withRelations(array $reps)
- * @method Entity relate(EntityInterface $entity)
- * @method Entity recover(int $id)
+ * @method EntityInterface relate(EntityInterface $entity)
+ * @method EntityInterface recover(int $id)
  * @method self withTransaction()
  * @method self commitTransaction()
  */

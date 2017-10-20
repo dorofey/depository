@@ -9,7 +9,6 @@
 namespace Repository\Hydrator;
 
 
-use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\MapperInterface;
 use Zend\Db\ResultSet\AbstractResultSet;
@@ -49,13 +48,19 @@ class OneToMany implements StrategyInterface
             }, $value);
         }
 
-        if ($value instanceof Entity) {
+        if ($value instanceof EntityInterface) {
             $result = [$value->id];
         }
 
         return implode(',', $result);
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed|null|\Zend\Db\ResultSet\ResultSetInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function hydrate($value)
     {
         $values = explode(',', $value);
@@ -63,7 +68,7 @@ class OneToMany implements StrategyInterface
             return null;
         }
 
-        /** @var StandardMapper $mapper */
+        /** @var MapperInterface $mapper */
         $mapper = $this->mapper->getRepository()->get($this->entityName);
         $select = $mapper->getSelect();
 

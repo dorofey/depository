@@ -9,7 +9,6 @@
 namespace Repository\Mapper\Feature;
 
 
-use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\CachingResultSet;
 use Repository\Mapper\MapperInterface;
@@ -47,7 +46,7 @@ class Relations implements FeatureInterface
                 $_result->setHydrator($hydrator);
             }
 
-            if ($_result instanceof Entity) {
+            if ($_result instanceof EntityInterface) {
                 $this->relate($mapper, $_result, $with);
             }
 

@@ -9,10 +9,8 @@
 namespace Repository\Mapper\Feature;
 
 
-use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\MapperInterface;
-use Repository\Mapper\StandardMapper;
 use Zend\EventManager\EventInterface;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
 use Zend\Hydrator\StrategyEnabledInterface;
@@ -53,7 +51,7 @@ class SoftDelete implements FeatureInterface
             $idOrEntity = $mapper->fetchOne($select);
         }
 
-        if ($idOrEntity instanceof Entity) {
+        if ($idOrEntity instanceof EntityInterface) {
             $idOrEntity->{$this->field} = null;
 
             $mapper->update($idOrEntity);

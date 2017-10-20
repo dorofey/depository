@@ -9,7 +9,7 @@
 namespace Repository\Hydrator;
 
 
-use Repository\Entity\Entity;
+use Repository\Entity\EntityInterface;
 use Repository\Mapper\StandardMapper;
 use Zend\Db\ResultSet\AbstractResultSet;
 use Zend\Hydrator\Strategy\StrategyInterface;
@@ -40,7 +40,7 @@ class HasOne implements StrategyInterface
         }
 
 
-        if ($value instanceof Entity) {
+        if ($value instanceof EntityInterface) {
             $result = $value->id;
         }
 

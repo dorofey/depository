@@ -11,12 +11,7 @@ return [
             Hydrator\PublicProperties::class          => InvokableFactory::class,
         ],
         'shared'    => [
-            Hydrator\PublicProperties::class => false
-        ]
+            Hydrator\PublicProperties::class => false,
+        ],
     ],
-    'zend_twig' => [
-        'environment' => [
-            'cache' => './data/cache'
-        ]
-    ]
 ];

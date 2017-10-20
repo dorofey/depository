@@ -10,7 +10,6 @@ namespace Repository\Mapper;
 
 
 use Psr\Container\ContainerInterface;
-use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Hydrator\PublicProperties;
 use Repository\Mapper\Feature\FeatureInterface;
