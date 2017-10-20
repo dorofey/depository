@@ -77,7 +77,7 @@ $somePosts  = $mapper->fetch(function(Select $select){
 Enables "soft-delete" feature. Exposes `recover` method
 
 ```php
-// In your repository
+// In your mapper
 protected static $features = [
     Repository\Mapper\Feature\SoftDelete::class => 'deleted_at' // default field is 'deleted_at'
 ];
@@ -94,7 +94,7 @@ $mapper->recover($post);
 Enables created and updated fields
 
 ```php
-// In your repository
+// In your mapper
 protected static $features = [
     Repository\Mapper\Feature\Timestamps::class => ['created_at', 'updated_at']
 ];
@@ -104,7 +104,7 @@ protected static $features = [
 ### \Repository\Mapper\Feature\Transaction
 
 ```php
-// In your repository
+// In your mapper
 protected static $features = [
     Repository\Mapper\Feature\Transaction::class,
 ];
@@ -123,7 +123,7 @@ $mapper->commitTransaction();
 ### \Repository\Mapper\Feature\Relations
 
 ```php
-// In your repository
+// In your mapper
 protected static $features = [
     Repository\Mapper\Feature\Relations::class => [
         'users'  => [HasManyThrough::class, User::class, ['post', 'user'], 'post_users'],
@@ -138,10 +138,11 @@ $post->author->name;
 
 ### \Repository\Mapper\Feature\SelectStrategy (Work in progress)
 
-Lets you define custom query logic or hide implementation details. 
+Lets you define custom query logic or hide implementation details.  
+Would be useful if you're going to expose mappers to a ViewHelper or anything monkey would have access too.
 
 ```php
-// In your repository
+// In your mapper
 protected static $features = [
     Repository\Mapper\Feature\SelectStrategy::class,
 ];
