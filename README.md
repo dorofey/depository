@@ -67,7 +67,7 @@ class PostRepository extends Repository\Mapper\StandardMapper
         ]
     ]
 ]
-    ```
+```
     
 ### In your code
     
@@ -78,7 +78,7 @@ $mapper = $repository->get(Post::class);
 $singlePost = $mapper->id(10);
 $allPosts   = $mapper->fetch();
 $somePosts  = $mapper->fetch(['title' => 'My post title'])
-    ```
+```
     
 ## Features
 
