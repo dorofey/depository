@@ -10,8 +10,6 @@ namespace Repository\Mapper\Feature;
 
 use Repository\Hydrator\PublicProperties;
 use Repository\Mapper\MapperInterface;
-use Repository\Mapper\StandardMapper;
-use Zend\Db\Metadata\Object\ColumnObject;
 use Zend\EventManager\EventInterface;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
 

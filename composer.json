@@ -1,16 +1,23 @@
 {
-    "name": "dorofey/repository",
-    "description": "Simple Zf3 data mapper",
-    "require": {
-        "zendframework/zend-db": "^2.8",
-        "zendframework/zend-eventmanager": "^3.2",
-        "zendframework/zend-hydrator": "^2.3",
-        "zendframework/zend-servicemanager": "^3.3"
-    },
-    "authors": [
-        {
-            "name": "dorofey",
-            "email": "dorofey@gmail.com"
-        }
-    ]
+  "name": "dorofey/zf3-data-mapper",
+  "type": "library",
+  "license": "MIT",
+  "description": "Simple Zf3 data mapper",
+  "require": {
+    "zendframework/zend-db": "^2.8",
+    "zendframework/zend-eventmanager": "^3.2",
+    "zendframework/zend-hydrator": "^2.3",
+    "zendframework/zend-servicemanager": "^3.3"
+  },
+  "authors": [
+    {
+      "name": "dorofey",
+      "email": "dorofey@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Repository\\": "module/Repository/src/"
+    }
+  }
 }
