@@ -28,7 +28,7 @@ class Timestamps implements FeatureInterface
         $hydrator->addStrategy($this->createdField, new DateTimeFormatterStrategy('Y-m-d H:i:s'));
         $hydrator->addStrategy($this->updatedField, new DateTimeFormatterStrategy('Y-m-d H:i:s'));
 
-        $mapper->getEventManager()->attach('pre.save', function (EventInterface $event) {
+        $mapper->getEventManager()->attach('pre.insert', function (EventInterface $event) {
             $event->getTarget()->{$this->createdField} = new \DateTime();
         });
         $mapper->getEventManager()->attach('pre.update', function (EventInterface $event) {
