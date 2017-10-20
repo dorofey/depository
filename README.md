@@ -1,6 +1,6 @@
 # ZF-3 Data mapper module
 
-Simple Data Mapper implementation based on `zend-db`
+Simple Data Mapper implementation based on `zend-db`  
 This is not just work in progress, but beginning of work in progress. Don't even think about using it.
 
 

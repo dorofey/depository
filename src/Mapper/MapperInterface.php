@@ -12,6 +12,7 @@ use Psr\Container\ContainerInterface;
 use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\Feature\FeatureInterface;
+use Repository\Repository\RepositoryPluginManager;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
@@ -55,6 +56,20 @@ interface MapperInterface
 
     /** @return ContainerInterface */
     public function getRepository();
+
+    /** @param ContainerInterface $repository */
+    public function setRepository(ContainerInterface $repository);
+
+    public static function getAdapterClass(): string;
+
+    public static function setAdapterClass(string $adapterClass);
+
+    public static function getHydratorClass(): string;
+
+    public static function setHydratorClass(string $hydratorClass);
+
+    public static function getFeatures(): array;
+    public static function setFeatures(array $features);
 
     /**
      * @return mixed

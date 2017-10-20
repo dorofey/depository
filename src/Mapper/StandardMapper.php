@@ -9,6 +9,7 @@
 namespace Repository\Mapper;
 
 
+use Psr\Container\ContainerInterface;
 use Repository\Entity\Entity;
 use Repository\Entity\EntityInterface;
 use Repository\Hydrator\PublicProperties;
@@ -28,8 +29,8 @@ use Zend\Hydrator\HydratorAwareTrait;
  * Class StandardMapper
  * @package Repository\Mapper
  * @method static withRelations(array $reps)
- * @method Entity relate(EntityInterface $entity)
- * @method Entity recover(int $id)
+ * @method EntityInterface relate(EntityInterface $entity)
+ * @method EntityInterface recover(int $id)
  * @method static withTransaction()
  * @method static commitTransaction()
  */
@@ -351,9 +352,9 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     }
 
     /**
-     * @param RepositoryPluginManager $repository
+     * @param ContainerInterface $repository
      */
-    public function setRepository(RepositoryPluginManager $repository)
+    public function setRepository(ContainerInterface $repository)
     {
         $this->repository = $repository;
     }

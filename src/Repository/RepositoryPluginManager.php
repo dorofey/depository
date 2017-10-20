@@ -8,12 +8,84 @@
 
 namespace Repository\Repository;
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Repository\Mapper\Feature\FeatureInterface;
+use Repository\Mapper\MapperInterface;
+use Zend\Db\Adapter\AdapterAwareInterface;
+use Zend\Hydrator\HydratorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 
 class RepositoryPluginManager extends AbstractPluginManager
 {
     protected $maps = [];
+    protected $instanceOf = MapperInterface::class;
 
+    public function get($name, array $options = null)
+    {
+        $name = $this->resolveMapperName($name);
+
+        /** @var MapperInterface $instance */
+        $instance = parent::get($name, $options);
+
+        $instance->setRepository($this);
+
+        if ($instance instanceof AdapterAwareInterface && $instance::getAdapterClass()) {
+            $adapter = $this->creationContext->get($instance::getAdapterClass());
+            $instance->setDbAdapter($adapter);
+        }
+
+        if ($instance instanceof HydratorAwareInterface && $instance::getHydratorClass()) {
+            $hydrator = $this->creationContext->get($instance::getHydratorClass());
+            $instance->setHydrator($hydrator);
+        }
+
+        try {
+            $this->registerFeatures($this->creationContext, $instance);
+        } catch (ContainerExceptionInterface $exception) {
+
+        }
+
+        return $instance;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param MapperInterface $resolvedClass
+     * @throws ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function registerFeatures(ContainerInterface $container, $resolvedClass): void
+    {
+        foreach ($resolvedClass::getFeatures() as $featureClass => $options) {
+            if (is_int($featureClass)) {
+                $featureClass = $options;
+                $options      = [];
+            }
+
+            if (is_string($featureClass) && $container->has($featureClass)) {
+                $featureClass = $container->get($featureClass);
+            }
+
+            if (is_string($featureClass) && class_exists($featureClass)) {
+                $featureClass = new $featureClass;
+            }
+
+
+            if ($featureClass instanceof FeatureInterface) {
+                $resolvedClass->registerFeature($featureClass, $options);
+            }
+        }
+    }
+
+    protected function resolveMapperName($requestedName)
+    {
+        if (array_key_exists($requestedName, $this->maps)) {
+            return $this->maps[$requestedName];
+        }
+
+        return $requestedName;
+    }
 
     /**
      * @param array $maps

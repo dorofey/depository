@@ -14,9 +14,9 @@ return [
             Hydrator\PublicProperties::class => false
         ]
     ],
-    'mappers'         => [
-        'abstract_factories' => [
-            \Repository\Mapper\MapperFactory::class,
+    'zend_twig' => [
+        'environment' => [
+            'cache' => './data/cache'
         ]
-    ],
+    ]
 ];
