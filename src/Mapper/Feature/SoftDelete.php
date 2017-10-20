@@ -42,22 +42,24 @@ class SoftDelete implements FeatureInterface
 
     /**
      * @param MapperInterface $mapper
-     * @param $id
+     * @param mixed $idOrEntity
      * @return null|EntityInterface
      */
-    public function recover(MapperInterface $mapper, $id)
+    public function recover(MapperInterface $mapper, $idOrEntity)
     {
-        $select = $mapper->createSelect();
-        $select->where->isNotNull($this->field)->equalTo('id', $id);
-        $entity = $mapper->fetchOne($select);
-
-        if ($entity instanceof Entity) {
-            $entity->{$this->field} = null;
-
-            $mapper->update($entity);
+        if(!$idOrEntity instanceof EntityInterface) {
+            $select = $mapper->createSelect();
+            $select->where->isNotNull($this->field)->equalTo('id', $idOrEntity);
+            $idOrEntity = $mapper->fetchOne($select);
         }
 
-        return $entity;
+        if ($idOrEntity instanceof Entity) {
+            $idOrEntity->{$this->field} = null;
+
+            $mapper->update($idOrEntity);
+        }
+
+        return $idOrEntity;
     }
 
     /**
