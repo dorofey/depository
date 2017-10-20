@@ -17,24 +17,10 @@ class Post implements EntityInterface
     public $title;
 
 
-    /**
-     * @param mixed $id
-     * @return EntityInterface
-     */
     public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
+    ...
     public function getId()
-    {
-        return $this->id;
-    }
+    ...
 }
 ```
     
