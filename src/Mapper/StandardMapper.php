@@ -153,25 +153,28 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     }
 
     /**
-     * @param Select|array $select
+     * @param mixed $select
      * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function fetch($select = [])
     {
+        if (is_array($select)) {
+            $select = $this->getSelect()->where($select);
+        }
+
+        if (is_callable($select)) {
+            $_select = $this->getSelect();
+            $select($_select);
+            $select = $_select;
+        }
+
         if (!($select instanceof Select)) {
             $select = $this->getSelect()->where($select);
         }
 
         $this->getEventManager()->trigger('pre.' . __FUNCTION__, $select);
 
-        try {
-            $result = $this->getGateway()->selectWith($select);
-        } catch (\Exception $exception) {
-            \Zend\Debug\Debug::dump($this->getGateway()->getSql()->buildSqlString($select));
-            \Zend\Debug\Debug::dump($exception->getMessage());
-
-            exit;
-        }
+        $result = $this->getGateway()->selectWith($select);
 
         $this->getEventManager()->trigger('post.' . __FUNCTION__, $result);
 
@@ -184,6 +187,16 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
      */
     public function fetchOne($select)
     {
+        if (is_array($select)) {
+            $select = $this->getSelect()->where($select);
+        }
+
+        if (is_callable($select)) {
+            $_select = $this->getSelect();
+            $select($_select);
+            $select = $_select;
+        }
+
         if (!($select instanceof Select)) {
             $select = $this->getSelect()->where($select);
         }

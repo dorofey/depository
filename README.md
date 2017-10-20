@@ -77,7 +77,11 @@ $mapper = $repository->get(Post::class);
 
 $singlePost = $mapper->id(10);
 $allPosts   = $mapper->fetch();
-$somePosts  = $mapper->fetch(['title' => 'My post title'])
+$somePosts  = $mapper->fetch(['title' => 'My post title']);
+
+$somePosts  = $mapper->fetch(function(Select $select){
+    $select->where(['title' => 'My post title'])->order('cteated_at')->limit(2);
+});
 ```
     
 ## Features
