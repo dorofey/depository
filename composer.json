@@ -2,6 +2,7 @@
   "name": "dorofey/zf3-data-mapper",
   "type": "library",
   "license": "MIT",
+  "version": "0.0.1",
   "description": "Simple Zf3 data mapper",
   "require": {
     "zendframework/zend-db": "^2.8",
