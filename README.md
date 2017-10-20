@@ -1,6 +1,7 @@
 # ZF-3 Repository module
 
 Simple Data Mapper implementation based on `zend-db`
+This is not just work in progress, but beginning of work in progress. Don't even think about using it.
 
 
 ## Example:
@@ -128,6 +129,20 @@ Enables created and updated fields
     
     $post = $mapper->withRelation(['users', 'author])->id(10);
     $post->author->name;
+
+### \Repository\Mapper\Feature\SelectStrategy (Work in progress)
+
+Lets you define custom query logic or hide implementation details. 
+
+    // In your repository
+    protected static $features = [
+        Repository\Mapper\Feature\SelectStrategy::class,
+    ];
+    ....
+    
+    $post = $mapper->withStrategy(['limit' => 10, 'where' => 'author=2,age<55', 'order' => '-created_at'])->fetch();
+    // Or simply
+    $post = $mapper->fetchWithStrategy(['limit' => 10, 'where' => 'author=2,age<55']);
 
 
     
