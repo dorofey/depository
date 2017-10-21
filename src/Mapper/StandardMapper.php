@@ -32,6 +32,8 @@ use Zend\Hydrator\HydratorAwareTrait;
  * @method EntityInterface recover(int $id)
  * @method static withTransaction()
  * @method static commitTransaction()
+ * @method CachingResultSet fetchByStrategy(array $data)
+ * @method EntityInterface fetchOneByStrategy(array $data)
  */
 class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, MapperInterface
 {

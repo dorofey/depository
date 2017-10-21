@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: alexeydorofeev
- * Date: 18/10/2017
- * Time: 09:31
+ * Date: 21/10/2017
+ * Time: 22:11
  */
 
-namespace Repository\Mapper\SelectStrategy;
+namespace Repository\Mapper\SelectStrategy\Strategies;
 
 
+use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
 
-class SelectStrategy implements SelectStrategyInterface
+class Limit implements SelectStrategyInterface
 {
 
     /**
@@ -22,6 +23,10 @@ class SelectStrategy implements SelectStrategyInterface
      */
     public function select(Select $select, $data = null, $entity = null): Select
     {
+        if ($data) {
+            $select->limit((int)$data);
+        }
+
         return $select;
     }
 }
