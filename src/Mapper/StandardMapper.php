@@ -12,7 +12,6 @@ namespace Repository\Mapper;
 use Psr\Container\ContainerInterface;
 use Repository\Entity\EntityInterface;
 use Repository\Hydrator\PublicProperties;
-use Repository\Mapper\Feature\FeatureInterface;
 use Repository\Repository\RepositoryPluginManager;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
@@ -20,9 +19,10 @@ use Zend\Db\Adapter\AdapterAwareTrait;
 use Zend\Db\ResultSet\AbstractResultSet;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
-use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Hydrator\HydratorAwareInterface;
 use Zend\Hydrator\HydratorAwareTrait;
+use Repository\Mapper\Feature\FeatureTrait;
+use Zend\EventManager\EventManagerAwareTrait;
 
 /**
  * Class StandardMapper
@@ -40,6 +40,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     use HydratorAwareTrait;
     use AdapterAwareTrait;
     use EventManagerAwareTrait;
+    use FeatureTrait;
 
     /** @var  TableGateway */
     protected $gateway;
@@ -52,58 +53,6 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     protected static $table;
     protected static $hydratorClass = PublicProperties::class;
     protected static $adapterClass = Adapter::class;
-
-    protected $featureMethods = [];
-    /** @var FeatureInterface[] */
-    protected $registeredFeatures = [];
-
-    protected static $features = [];
-
-    /**
-     * @return array
-     */
-    public static function getFeatures(): array
-    {
-        return static::$features;
-    }
-
-    /**
-     * @param array $features
-     */
-    public static function setFeatures(array $features)
-    {
-        static::$features = $features;
-    }
-
-    public function registerFeature(FeatureInterface $feature, $options = null)
-    {
-        $this->registeredFeatures[] = $feature;
-        $feature->register($this, $options);
-    }
-
-    /**
-     * @param $name
-     * @param callable $method
-     * @return $this
-     */
-    public function addFeatureMethod($name, callable $method)
-    {
-        $this->featureMethods[$name] = $method;
-
-        return $this;
-    }
-
-    public function __call($name, $arguments)
-    {
-        if (array_key_exists($name, $this->featureMethods)) {
-            array_unshift($arguments, $this);
-
-            return call_user_func_array($this->featureMethods[$name], $arguments);
-        }
-
-        return false;
-    }
-
 
     /**
      * @param EntityInterface $entity
