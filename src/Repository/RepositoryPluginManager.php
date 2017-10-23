@@ -10,6 +10,7 @@ namespace Repository\Repository;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Repository\Mapper\Feature\FeatureAwareInterface;
 use Repository\Mapper\Feature\FeatureInterface;
 use Repository\Mapper\MapperInterface;
 use Zend\Db\Adapter\AdapterAwareInterface;
@@ -21,6 +22,13 @@ class RepositoryPluginManager extends AbstractPluginManager
     protected $maps = [];
     protected $instanceOf = MapperInterface::class;
 
+    /**
+     * @param string $name
+     * @param array|null $options
+     * @return mixed|MapperInterface
+     * @throws ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function get($name, array $options = null)
     {
         $name = $this->resolveMapperName($name);
@@ -40,10 +48,8 @@ class RepositoryPluginManager extends AbstractPluginManager
             $instance->setHydrator($hydrator);
         }
 
-        try {
+        if($instance instanceof FeatureAwareInterface) {
             $this->registerFeatures($this->creationContext, $instance);
-        } catch (ContainerExceptionInterface $exception) {
-
         }
 
         return $instance;
@@ -51,7 +57,7 @@ class RepositoryPluginManager extends AbstractPluginManager
 
     /**
      * @param ContainerInterface $container
-     * @param MapperInterface $resolvedClass
+     * @param FeatureAwareInterface $resolvedClass
      * @throws ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */

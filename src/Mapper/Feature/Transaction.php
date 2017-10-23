@@ -19,9 +19,10 @@ class Transaction implements FeatureInterface
      */
     public function register(MapperInterface $mapper, $options = null)
     {
-        $mapper->addFeatureMethod('withTransaction', [$this, 'withTransaction']);
-        $mapper->addFeatureMethod('commitTransaction', [$this, 'commitTransaction']);
-
+        if ($mapper instanceof FeatureAwareInterface) {
+            $mapper->addFeatureMethod('withTransaction', [$this, 'withTransaction']);
+            $mapper->addFeatureMethod('commitTransaction', [$this, 'commitTransaction']);
+        }
     }
 
     /**

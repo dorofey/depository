@@ -25,7 +25,7 @@ class Offset implements SelectStrategyInterface
     {
         $select->offset((int)$data);
         if (!$select->getRawState('limit')) {
-            // MySQL needs a limit when offset it set ... set an unlimiting limit:
+            // MySQL needs a limit when offset it set ... set an limit:
             $select->limit(PHP_INT_MAX);
         }
 

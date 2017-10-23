@@ -66,10 +66,9 @@ class AndStrategy implements SelectStrategyInterface
                         $where->notEqualTo($result['left'], $result['right']);
                         break;
                     case '=':
+                    default:
                         $where->equalTo($result['left'], $result['right']);
                         break;
-                    default:
-                        throw new SelectStrategyException('WTF?! Code is b0rked!');
                 }
                 if ($this instanceof AndStrategy) {
                     $where->and;

@@ -10,7 +10,6 @@ namespace Repository\Mapper;
 
 use Psr\Container\ContainerInterface;
 use Repository\Entity\EntityInterface;
-use Repository\Mapper\Feature\FeatureInterface;
 use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
@@ -66,23 +65,10 @@ interface MapperInterface
 
     public static function setHydratorClass(string $hydratorClass);
 
-    public static function getFeatures(): array;
-    public static function setFeatures(array $features);
-
     /**
      * @return mixed
      */
     public static function getTable();
-
-
-    public function registerFeature(FeatureInterface $feature, $options = null);
-
-    /**
-     * @param string $name
-     * @param callable $method
-     * @return static
-     */
-    public function addFeatureMethod($name, callable $method);
 
 
     /**

@@ -10,7 +10,6 @@ namespace Repository\Mapper\SelectStrategy;
 
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class SelectStrategyFactory implements FactoryInterface

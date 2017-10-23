@@ -21,7 +21,6 @@ use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Hydrator\HydratorAwareInterface;
 use Zend\Hydrator\HydratorAwareTrait;
-use Repository\Mapper\Feature\FeatureTrait;
 use Zend\EventManager\EventManagerAwareTrait;
 
 /**
@@ -40,7 +39,6 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     use HydratorAwareTrait;
     use AdapterAwareTrait;
     use EventManagerAwareTrait;
-    use FeatureTrait;
 
     /** @var  TableGateway */
     protected $gateway;

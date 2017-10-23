@@ -32,9 +32,11 @@ class SelectStrategy implements FeatureInterface
 
     public function register(MapperInterface $mapper, $options = null)
     {
-        $mapper->addFeatureMethod('fetchByStrategy', [$this, 'fetchByStrategy']);
-        $mapper->addFeatureMethod('fetchOneByStrategy', [$this, 'fetchOneByStrategy']);
-        $mapper->addFeatureMethod('withStrategy', [$this, 'withStrategy']);
+        if ($mapper instanceof FeatureAwareInterface) {
+            $mapper->addFeatureMethod('fetchByStrategy', [$this, 'fetchByStrategy']);
+            $mapper->addFeatureMethod('fetchOneByStrategy', [$this, 'fetchOneByStrategy']);
+            $mapper->addFeatureMethod('withStrategy', [$this, 'withStrategy']);
+        }
     }
 
     public function fetchByStrategy(MapperInterface $mapper, array $data = [])
@@ -67,10 +69,5 @@ class SelectStrategy implements FeatureInterface
         $mapper->getEventManager()->attach('pre.fetchOneBySelect', $listener);
 
         return $mapper;
-    }
-
-    public function getMetaData(StandardMapper $mapper)
-    {
-        return [];
     }
 }

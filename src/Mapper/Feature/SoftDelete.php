@@ -31,7 +31,10 @@ class SoftDelete implements FeatureInterface
         $select->where->isNull($this->field);
         $mapper->setSelect($select);
 
-        $mapper->addFeatureMethod('recover', [$this, 'recover']);
+        if ($mapper instanceof FeatureAwareInterface) {
+            $mapper->addFeatureMethod('recover', [$this, 'recover']);
+        }
+
 
         $hydrator->addStrategy($this->field, new DateTimeFormatterStrategy('Y-m-d H:i:s'));
 
@@ -45,7 +48,7 @@ class SoftDelete implements FeatureInterface
      */
     public function recover(MapperInterface $mapper, $idOrEntity)
     {
-        if(!$idOrEntity instanceof EntityInterface) {
+        if (!$idOrEntity instanceof EntityInterface) {
             $select = $mapper->createSelect();
             $select->where->isNotNull($this->field)->equalTo('id', $idOrEntity);
             $idOrEntity = $mapper->fetchOne($select);

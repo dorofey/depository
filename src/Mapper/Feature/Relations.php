@@ -22,12 +22,14 @@ class Relations implements FeatureInterface
     public function register(MapperInterface $mapper, $options = null)
     {
         foreach ((array)$options as $name => $relation) {
-            $relationClass = array_shift($relation);
+            $relationClass          = array_shift($relation);
             $this->relations[$name] = new $relationClass($mapper, ...$relation);
         }
 
-        $mapper->addFeatureMethod('relate', [$this, 'relate']);
-        $mapper->addFeatureMethod('withRelations', [$this, 'withRelations']);
+        if ($mapper instanceof FeatureAwareInterface) {
+            $mapper->addFeatureMethod('relate', [$this, 'relate']);
+            $mapper->addFeatureMethod('withRelations', [$this, 'withRelations']);
+        }
     }
 
     public function withRelations(MapperInterface $mapper, array $with = [])

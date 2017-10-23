@@ -9,7 +9,6 @@
 namespace Repository\Hydrator;
 
 
-use Repository\Entity\EntityInterface;
 use Repository\Mapper\MapperInterface;
 use Zend\Hydrator\Strategy\StrategyInterface;
 

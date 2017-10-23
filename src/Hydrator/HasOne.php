@@ -48,6 +48,12 @@ class HasOne implements StrategyInterface
 
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed|null|EntityInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function hydrate($value)
     {
         if (!$value) {
