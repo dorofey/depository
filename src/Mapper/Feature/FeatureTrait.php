@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Mapper\MapperInterface;
 
 trait FeatureTrait
@@ -16,8 +15,6 @@ trait FeatureTrait
     protected $featureMethods = [];
     /** @var FeatureInterface[] */
     protected $registeredFeatures = [];
-
-    protected static $features = [];
 
     /**
      * @return array
@@ -87,4 +84,19 @@ trait FeatureTrait
         return false;
     }
 
+    /**
+     * @return array
+     */
+    public function getFeatureMethods(): array
+    {
+        return $this->featureMethods;
+    }
+
+    /**
+     * @return FeatureInterface[]
+     */
+    public function getRegisteredFeatures(): array
+    {
+        return $this->registeredFeatures;
+    }
 }

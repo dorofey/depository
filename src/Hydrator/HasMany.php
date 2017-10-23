@@ -8,8 +8,9 @@
 
 namespace Repository\Hydrator;
 
-
 use Repository\Mapper\MapperInterface;
+use Zend\Hydrator\AbstractHydrator;
+use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
 class HasMany implements StrategyInterface
@@ -51,7 +52,7 @@ class HasMany implements StrategyInterface
      */
     public function hydrate($value, $data = null)
     {
-        if (!$data['id']) {
+        if (! $data['id']) {
             return false;
         }
         /** @var MapperInterface $mapper */

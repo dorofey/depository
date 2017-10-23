@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\MapperInterface;
 use Zend\EventManager\EventInterface;
@@ -48,7 +47,7 @@ class SoftDelete implements FeatureInterface
      */
     public function recover(MapperInterface $mapper, $idOrEntity)
     {
-        if (!$idOrEntity instanceof EntityInterface) {
+        if (! $idOrEntity instanceof EntityInterface) {
             $select = $mapper->createSelect();
             $select->where->isNotNull($this->field)->equalTo('id', $idOrEntity);
             $idOrEntity = $mapper->fetchOne($select);

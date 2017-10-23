@@ -8,7 +8,6 @@
 
 namespace Repository\Hydrator;
 
-
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\MapperInterface;
 use Zend\Db\ResultSet\AbstractResultSet;
@@ -64,7 +63,7 @@ class OneToMany implements StrategyInterface
     public function hydrate($value)
     {
         $values = explode(',', $value);
-        if (!count($values)) {
+        if (! count($values)) {
             return null;
         }
 

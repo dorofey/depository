@@ -16,7 +16,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Hydrator\HydratorInterface;
 
-
 /**
  * Class StandardMapper
  * @package Repository\Mapper

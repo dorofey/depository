@@ -8,7 +8,6 @@
 
 namespace Repository\Hydrator;
 
-
 use Repository\Mapper\MapperInterface;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
@@ -56,7 +55,7 @@ class HasManyThrough implements StrategyInterface
      */
     public function hydrate($value, $data = null)
     {
-        if (!$data['id']) {
+        if (! $data['id']) {
             return false;
         }
         /** @var MapperInterface $mapper */
@@ -68,6 +67,5 @@ class HasManyThrough implements StrategyInterface
         $select->where([$this->table . '.' . $this->masterField => $data['id']]);
 
         return $mapper->fetch($select);
-
     }
 }

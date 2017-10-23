@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper;
 
-
 use Psr\Container\ContainerInterface;
 use Repository\Entity\EntityInterface;
 use Repository\Hydrator\PublicProperties;
@@ -60,7 +59,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     {
         $result = $this->getEventManager()->trigger('pre.' . __FUNCTION__, $entity);
 
-        if (!$result->stopped()) {
+        if (! $result->stopped()) {
             $entity = $entity->getId() === null ? $this->insert($entity) : $this->update($entity);
         }
 
@@ -72,7 +71,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     public function update(EntityInterface $entity)
     {
         $result = $this->getEventManager()->trigger('pre.' . __FUNCTION__, $entity);
-        if (!$result->stopped()) {
+        if (! $result->stopped()) {
             $this->getGateway()->update($this->getHydrator()->extract($entity), ['id' => $entity->getId()]);
         }
         $this->getEventManager()->trigger('post.' . __FUNCTION__, $entity);
@@ -83,7 +82,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     public function insert(EntityInterface $entity)
     {
         $result = $this->getEventManager()->trigger('pre.' . __FUNCTION__, $entity);
-        if (!$result->stopped()) {
+        if (! $result->stopped()) {
             $this->getGateway()->insert($this->getHydrator()->extract($entity));
             $entity->setId($this->getGateway()->getLastInsertValue());
         }
@@ -95,14 +94,14 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     public function delete(EntityInterface $entity)
     {
         $result = $this->getEventManager()->trigger('pre.' . __FUNCTION__, $entity);
-        if (!$result->stopped()) {
+        if (! $result->stopped()) {
             $this->getGateway()->delete(['id' => $entity->getId()]);
         }
         $this->getEventManager()->trigger('post.' . __FUNCTION__, $entity);
     }
 
     /**
-     * @param mixed $select
+     * @param Select|array|callable $select
      * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function fetch($select = [])
@@ -117,7 +116,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
             $select = $_select;
         }
 
-        if (!($select instanceof Select)) {
+        if (! ($select instanceof Select)) {
             $select = $this->getSelect()->where($select);
         }
 
@@ -131,10 +130,10 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     }
 
     /**
-     * @param Select|array $select
+     * @param Select|array|callable $select
      * @return EntityInterface|null
      */
-    public function fetchOne($select)
+    public function fetchOne($select = [])
     {
         if (is_array($select)) {
             $select = $this->getSelect()->where($select);
@@ -146,7 +145,7 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
             $select = $_select;
         }
 
-        if (!($select instanceof Select)) {
+        if (! ($select instanceof Select)) {
             $select = $this->getSelect()->where($select);
         }
 
@@ -261,7 +260,6 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     public function getGateway(): TableGateway
     {
         if (null === $this->gateway) {
-
             $resultSet = $this->getHydrator()
                 ? new CachingResultSet($this->getHydrator(), $this->createModel())
                 : null;
@@ -306,5 +304,4 @@ class StandardMapper implements AdapterAwareInterface, HydratorAwareInterface, M
     {
         $this->repository = $repository;
     }
-
 }

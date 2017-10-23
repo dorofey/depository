@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
@@ -29,6 +28,5 @@ class Random implements SelectStrategyInterface
         $select->order($rand);
 
         return $select;
-
     }
 }

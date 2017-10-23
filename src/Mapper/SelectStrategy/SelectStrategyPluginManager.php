@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy;
 
-
 use Zend\Db\Sql\Select;
 use Zend\ServiceManager\AbstractPluginManager;
 

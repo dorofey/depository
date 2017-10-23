@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy;
 
-
 use Zend\Db\Sql\Select;
 
 interface SelectStrategyInterface
@@ -20,5 +19,4 @@ interface SelectStrategyInterface
      * @return Select
      */
     public function select(Select $select, $data = null, $entity = null): Select;
-
 }

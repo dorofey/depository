@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
 
@@ -24,7 +23,7 @@ class Offset implements SelectStrategyInterface
     public function select(Select $select, $data = null, $entity = null): Select
     {
         $select->offset((int)$data);
-        if (!$select->getRawState('limit')) {
+        if (! $select->getRawState('limit')) {
             // MySQL needs a limit when offset it set ... set an limit:
             $select->limit(PHP_INT_MAX);
         }

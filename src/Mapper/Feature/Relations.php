@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\CachingResultSet;
 use Repository\Mapper\MapperInterface;

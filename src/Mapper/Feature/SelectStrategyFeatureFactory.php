@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Interop\Container\ContainerInterface;
 use Repository\Mapper\SelectStrategy\SelectStrategyPluginManager;
 use Zend\ServiceManager\Factory\FactoryInterface;

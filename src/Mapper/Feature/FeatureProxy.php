@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 class FeatureProxy
 {
     public $mapper;
@@ -32,7 +31,7 @@ class FeatureProxy
     {
         $result = call_user_func_array([$this->mapper, $method], $parameters);
 
-        if($this->callback) {
+        if ($this->callback) {
             $result = call_user_func($this->callback, $result);
         }
 

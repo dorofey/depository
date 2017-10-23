@@ -8,7 +8,6 @@
 
 namespace Repository\Hydrator;
 
-
 use Repository\Entity\EntityInterface;
 use Repository\Mapper\StandardMapper;
 use Zend\Db\ResultSet\AbstractResultSet;
@@ -45,7 +44,6 @@ class HasOne implements StrategyInterface
         }
 
         return $result;
-
     }
 
     /**
@@ -56,7 +54,7 @@ class HasOne implements StrategyInterface
      */
     public function hydrate($value)
     {
-        if (!$value) {
+        if (! $value) {
             return $value;
         }
 

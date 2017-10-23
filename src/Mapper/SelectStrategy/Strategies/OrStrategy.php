@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 class OrStrategy extends AndStrategy
 {
 

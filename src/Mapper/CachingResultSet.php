@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper;
 
-
 use Zend\Db\ResultSet\HydratingResultSet;
 
 class CachingResultSet extends HydratingResultSet
@@ -23,5 +22,4 @@ class CachingResultSet extends HydratingResultSet
 
         return $return;
     }
-
 }

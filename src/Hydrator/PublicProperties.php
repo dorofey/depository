@@ -8,7 +8,6 @@
 
 namespace Repository\Hydrator;
 
-
 use Zend\Hydrator\AbstractHydrator;
 
 class PublicProperties extends AbstractHydrator
@@ -27,7 +26,7 @@ class PublicProperties extends AbstractHydrator
         $filter = $this->getFilter();
 
         foreach ($data as $name => $value) {
-            if (!$filter->filter($name)) {
+            if (! $filter->filter($name)) {
                 unset($data[$name]);
                 continue;
             }
@@ -41,10 +40,10 @@ class PublicProperties extends AbstractHydrator
 
             $value = $this->extractValue($name, $value, $object);
 
-            if ($value !== false) {
-                $data[$name] = $this->extractValue($name, $value, $object);
-            } else {
+            if ($value === false) {
                 unset($data[$name]);
+            } else {
+                $data[$name] = $value;
             }
         }
 
@@ -66,7 +65,6 @@ class PublicProperties extends AbstractHydrator
         $data       = array_intersect_key($data, $properties);
 
         foreach ($data as $property => $datum) {
-
             $property            = $this->hydrateName($property, $data);
             $object->{$property} = $this->hydrateValue($property, $datum, $data);
 
@@ -86,7 +84,7 @@ class PublicProperties extends AbstractHydrator
     protected function getObjectFields($object)
     {
         $className = get_class($object);
-        if (!array_key_exists($className, $this->cacheMap)) {
+        if (! array_key_exists($className, $this->cacheMap)) {
             $this->cacheMap[$className] = get_class_vars($className);
         }
 

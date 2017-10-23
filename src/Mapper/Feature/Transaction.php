@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Mapper\MapperInterface;
 
 class Transaction implements FeatureInterface

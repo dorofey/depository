@@ -12,6 +12,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Repository\Mapper\Feature\FeatureAwareInterface;
 use Repository\Mapper\Feature\FeatureInterface;
+use Repository\Mapper\Feature\FeatureTrait;
 use Repository\Mapper\MapperInterface;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Hydrator\HydratorAwareInterface;
@@ -48,7 +49,7 @@ class RepositoryPluginManager extends AbstractPluginManager
             $instance->setHydrator($hydrator);
         }
 
-        if($instance instanceof FeatureAwareInterface) {
+        if ($instance instanceof FeatureAwareInterface) {
             $this->registerFeatures($this->creationContext, $instance);
         }
 
@@ -61,9 +62,9 @@ class RepositoryPluginManager extends AbstractPluginManager
      * @throws ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function registerFeatures(ContainerInterface $container, $resolvedClass): void
+    public function registerFeatures(ContainerInterface $container, $resolvedClass): void
     {
-        foreach ($resolvedClass::getFeatures() as $featureClass => $options) {
+        foreach ($resolvedClass::getFeatures() ?? [] as $featureClass => $options) {
             if (is_int($featureClass)) {
                 $featureClass = $options;
                 $options      = [];

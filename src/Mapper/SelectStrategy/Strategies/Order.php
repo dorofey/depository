@@ -19,22 +19,19 @@ class Order implements SelectStrategyInterface
     {
         $orderArray = [];
 
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             $data = explode(',', $data);
         }
 
         foreach ($data as $chunk) {
             if (is_string($chunk)) {
-
                 $dir = 'ASC';
                 if (strpos($chunk, '-') === 0) {
                     $dir   = 'DESC';
                     $chunk = substr($chunk, 1);
                 }
                 $orderArray[] = $chunk . ' ' . $dir;
-
             } elseif (is_array($chunk)) {
-
                 $dir   = 'ASC';
                 $field = null;
 

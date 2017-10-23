@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
 

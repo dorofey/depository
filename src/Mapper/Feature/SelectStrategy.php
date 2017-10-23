@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Mapper\MapperInterface;
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Repository\Mapper\StandardMapper;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Repository;
 
 class Module
@@ -6,6 +7,11 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/../config/module.config.php';
+        $config = new ConfigProvider();
+
+        return [
+            'service_manager' => $config->getDependencyConfig(),
+            'select_strategy' => $config->getSelectStrategyConfig(),
+        ];
     }
 }

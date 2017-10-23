@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy;
 
-
 class SelectStrategyException extends \Exception
 {
 

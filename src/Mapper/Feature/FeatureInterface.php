@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\Feature;
 
-
 use Repository\Mapper\MapperInterface;
 
 interface FeatureInterface

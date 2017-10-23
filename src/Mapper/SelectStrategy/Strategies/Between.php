@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
 
@@ -24,8 +23,7 @@ class Between implements SelectStrategyInterface
     public function select(Select $select, $data = null, $entity = null): Select
     {
         foreach ($data as $key => $value) {
-
-            if (!is_array($value)) {
+            if (! is_array($value)) {
                 $value = explode(',', $value);
             }
 

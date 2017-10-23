@@ -8,7 +8,6 @@
 
 namespace Repository\Mapper\SelectStrategy\Strategies;
 
-
 use Repository\Mapper\SelectStrategy\SelectStrategyException;
 use Repository\Mapper\SelectStrategy\SelectStrategyInterface;
 use Zend\Db\Sql\Select;
@@ -34,7 +33,6 @@ class AndStrategy implements SelectStrategyInterface
         $where  = $where->NEST;
 
         foreach ($chunks as $chunk) {
-
             $chunk = trim($chunk);
 
             if (preg_match(
@@ -42,7 +40,6 @@ class AndStrategy implements SelectStrategyInterface
                 $chunk,
                 $result
             )) {
-
                 $result['right'] = trim($result['right'], "'\"");
                 $result['left']  = trim($result['left'], "'\"");
 
@@ -90,6 +87,5 @@ class AndStrategy implements SelectStrategyInterface
         $select->where($where);
 
         return $select;
-
     }
 }
