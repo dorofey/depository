@@ -27,7 +27,7 @@ class Post implements EntityInterface
 ### Define our mapper
     
 ```php
-class PostRepository extends Repository\Mapper\StandardMapper
+class PostMapper extends Repository\Mapper\StandardMapper
 {
     protected static $entityClass = Post::class;
     protected static $table = 'posts';
@@ -46,7 +46,7 @@ class PostRepository extends Repository\Mapper\StandardMapper
 [
     'mappers' => [
         'maps' => [
-            Post::class => PostRepository::class
+            Post::class => PostMapper::class
         ],
         'aliases' => [
             'posts' => Post::class
@@ -152,6 +152,3 @@ $post = $mapper->withStrategy(['limit' => 10, 'where' => 'author=2,age<55', 'ord
 // Or simply
 $post = $mapper->fetchWithStrategy(['limit' => 10, 'where' => 'author=2,age<55']);
 ```
-
-
-    
